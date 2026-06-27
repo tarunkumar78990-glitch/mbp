@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Use secret') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'reg-creds', usernameVariable: 'U', passwordVariable: 'P')]) {
+        withCredentials([usernamePassword(credentialsId: 'passwd-slave-jenkins-', usernameVariable: 'U', passwordVariable: 'P')]) {
         sh 'echo "user=$U pass is masked: $P"'
       }
         }
