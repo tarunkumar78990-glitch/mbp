@@ -1,10 +1,23 @@
 pipeline {
   agent any
   stages {
-    stage('CI') {
-      steps {
-        echo "Building branch ${env.BRANCH_NAME}"
-        sh 'echo build && echo test'
+    stage('Tests') {
+      parallel {
+        stage('Unit') {
+          steps {
+            sh 'echo unit;  sleep 5'
+          }
+        }
+        stage('Lint') {
+          steps {
+            sh 'echo lint;  sleep 5'
+          }
+        }
+        stage('Intg') {
+          steps {
+            sh 'echo intg;  sleep 5'
+          }
+        }
       }
     }
   }
