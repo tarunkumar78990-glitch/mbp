@@ -1,11 +1,12 @@
 pipeline {
-  agent {
-    label 'linux'
-  }
+  agent any
   stages {
-    stage('On agent') {
+    stage('Use secret') {
       steps {
-        sh 'hostname'
+        withCredentials([string(credentialsId: 'demo-token', variable: 'TOKEN')]) {
+          sh 'echo "token length is ${#TOKEN}"' // use it, don't print it
+          sh 'echo "the value is $TOKEN"' // watch the log mask it
+        }
       }
     }
   }
