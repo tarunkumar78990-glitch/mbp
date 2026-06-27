@@ -1,22 +1,12 @@
 pipeline {
   agent any
-  parameters {
-    choice(name: 'ENVIRONMENT', choices: ['dev','prod'])
-  }
   stages {
-    stage('Always') {
+    stage('Deploy') {
       steps {
-        echo 'runs every time'
-      }
-    }
-    stage('Prod only') {
-      when {
-        expression {
-          params.ENVIRONMENT == 'prod'
+        timeout(time: 5, unit: 'MINUTES') {
+          input message: 'Deploy to production?', ok: 'Deploy'
         }
-      }
-      steps {
-        echo 'only when prod selected'
+        echo 'deploying...'
       }
     }
   }
