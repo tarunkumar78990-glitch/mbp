@@ -1,12 +1,11 @@
 pipeline {
-  agent any
+  agent {
+    label 'linux'
+  }
   stages {
-    stage('Deploy') {
+    stage('On agent') {
       steps {
-        timeout(time: 5, unit: 'MINUTES') {
-          input message: 'Deploy to production?', ok: 'Deploy'
-        }
-        echo 'deploying...'
+        sh 'hostname'
       }
     }
   }
