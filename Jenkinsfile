@@ -1,10 +1,22 @@
 pipeline {
   agent any
+  parameters {
+    choice(name: 'ENVIRONMENT', choices: ['dev','prod'])
+  }
   stages {
-    stage('CI') {
+    stage('Always') {
       steps {
-        echo "Building branch ${env.BRANCH_NAME}"
-        sh 'echo build && echo test'
+        echo 'runs every time'
+      }
+    }
+    stage('Prod only') {
+      when {
+        expression {
+          params.ENVIRONMENT == 'prod'
+        }
+      }
+      steps {
+        echo 'only when prod selected'
       }
     }
   }
